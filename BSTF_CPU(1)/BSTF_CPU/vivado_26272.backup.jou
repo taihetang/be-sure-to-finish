@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Tue May  6 09:10:04 2025
+# Process ID: 26272
+# Current directory: C:/Users/taihetang/Desktop/BSTF_CPU(1)/BSTF_CPU
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent17536 C:\Users\taihetang\Desktop\BSTF_CPU(1)\BSTF_CPU\RV-CCCPU.xpr
+# Log file: C:/Users/taihetang/Desktop/BSTF_CPU(1)/BSTF_CPU/vivado.log
+# Journal file: C:/Users/taihetang/Desktop/BSTF_CPU(1)/BSTF_CPU\vivado.jou
+#-----------------------------------------------------------
+start_gui

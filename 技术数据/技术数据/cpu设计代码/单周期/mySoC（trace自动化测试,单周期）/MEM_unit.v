@@ -6,7 +6,7 @@ module MEM_unit(
     input   wire [31:0]     wd,
     input   wire            we_dram,
     input   wire            unsigned_Sel,
-    input   wire [1:0]      dram_extend,
+    input   wire [1:0]      dram_extend,      //00extend24 01extend16 10noextend
     input   wire [31:0]     rd,
     output  reg  [31:0]     MEM_out,
     output  reg  [31:0]     wd_extend

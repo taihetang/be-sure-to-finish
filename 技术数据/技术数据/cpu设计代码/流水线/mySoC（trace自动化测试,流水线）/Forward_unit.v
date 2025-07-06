@@ -1,3 +1,4 @@
+`include "define.v"
 module Forward_unit(
     input   wire           clk,
     input   wire           rst_n,
@@ -9,8 +10,11 @@ module Forward_unit(
     input   wire [31: 0]   MEM_rd,
     input   wire           EX_we,
     input   wire           MEM_we,
-    output  reg  [31:0]    Forward_data
-);
+    output  reg  [31:0]    Forward_data,
+    output  wire           Forward_A_Sel,
+    output  wire           Forward_B_Sel   
+    );
+//这里不直接用一个控制信号选择前递操作数是因为防止无需前递时选择错误
     reg EX_risk_A;
     reg EX_risk_B;
     reg MEM_risk_A;
@@ -55,8 +59,16 @@ module Forward_unit(
     always @(*) 
     begin
         if (EX_risk_A)
-        Forward_data = 
+        Forward_data = EX_rd;
+        else if (MEM_risk_A)
+        Forward_data = MEM_rd;
+        else
+        Forward_data = 32'b0;
     end 
+
+//前递选择操作数
+    assign Forward_A_Sel = (EX_risk_A == 1'b1 && MEM_risk_A == 1'b1)?1'b1:1'b0;
+    assign Forward_B_Sel = (EX_risk_B == 1'b1 && MEM_risk_B == 1'b1)?1'b1:1'b0;
 
 
 endmodule

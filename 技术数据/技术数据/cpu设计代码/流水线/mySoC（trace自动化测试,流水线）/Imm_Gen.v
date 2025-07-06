@@ -1,11 +1,10 @@
 `include "define.v"
 module Imm_Gen(
-    input  wire [31:0] inst,
-    input  wire [2:0]  Imm_Sel,
-    output reg  [31:0] Imm_out
+    input   wire    [31:0]  inst,
+    input   wire    [2:0]   Imm_Sel,
+    output  reg     [31:0]  Imm_out
     );
-
-
+//立即数的生成
     wire [31:0] I_Imm;
 	wire [31:0] U_Imm;
 	wire [31:0] J_Imm;
@@ -18,7 +17,6 @@ module Imm_Gen(
 	assign  B_Imm [31:0] ={{20{inst[31]}},inst[7],inst[30:25],inst[11:8],1'b0};
 	assign  S_Imm [31:0] ={{20{inst[31]}},inst[31:25],inst[11:7]}; 
 
-
     always @(*) 
     begin
         case (Imm_Sel)
@@ -30,5 +28,6 @@ module Imm_Gen(
          default:       Imm_out[31: 0] = 32'b0;
         endcase
     end
+
 
 endmodule

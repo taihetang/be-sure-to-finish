@@ -17,6 +17,7 @@
 //R_type
 `define		R_type			7'b0110011
 
+//根据指令格式分类经过选择分类
 //real_type
 `define		R_real_type		        6'b000001
 `define		I_real_type		        6'b000010

@@ -15,7 +15,8 @@ module Control_unit(
     output reg              unsigned_Sel,       //unsigned          
     output reg              we_dram, 
     output reg  [1:0]       WB_type,
-    output reg  [1:0]       dram_extend
+    output reg  [1:0]       dram_extend,
+    output wire             Load_Sel
     );
 
     // Instruction type classification
@@ -276,5 +277,8 @@ module Control_unit(
             default: dram_extend = 2'b10;
         endcase
     end
+
+//判断是否是load
+    assign Load_Sel = (opcode[6: 2] == 5'b00000)?1'b1:1'b0;
 
 endmodule

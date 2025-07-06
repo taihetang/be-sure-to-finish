@@ -8,6 +8,9 @@ module EX_unit(
     input   wire                rd2_Imm_Sel,  
     input   wire    [3: 0]      ALU_Sel,
     input   wire                unsigned_Sel,
+    input   wire                Forward_A_Sel,
+    input   wire                Forward_B_Sel,
+    input   wire    [31:0]      Forward_data,
     output  wire    [1: 0]      Comp_out,
     output  wire    [31: 0]     ALU_out
     );
@@ -17,10 +20,14 @@ module EX_unit(
     wire [31:0]Comp_A;
     wire [31:0]Comp_B;
 
-    assign ALU_A = (rd1_pc_Sel  == 1'b1)?pc:rd1;
-    assign ALU_B = (rd2_Imm_Sel == 1'b1)?Imm_out:rd2;
-    assign Comp_A = (rd1_pc_Sel  == 1'b1)?rd1:pc;
-    assign Comp_B = (rd2_Imm_Sel  == 1'b1)?rd2:Imm_out;
+    //执行前进行选择 
+    assign A = (Forward_A_Sel == 1'b1)?Forward_data:rd1;
+    assign B = (Forward_B_Sel == 1'b1)?Forward_data:rd2;
+
+    assign ALU_A = (rd1_pc_Sel  == 1'b1)?pc:A;
+    assign ALU_B = (rd2_Imm_Sel == 1'b1)?Imm_out:B;
+    assign Comp_A = (rd1_pc_Sel  == 1'b1)?A:pc;
+    assign Comp_B = (rd2_Imm_Sel  == 1'b1)?B:Imm_out;
 
     ALU EX_ALU(
         .A(ALU_A),

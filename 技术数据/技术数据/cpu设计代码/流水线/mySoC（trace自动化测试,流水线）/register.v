@@ -26,14 +26,10 @@ module Register(
             for(i=0; i<=31; i=i+1)  
                 regs[i] <= 32'b0;
         end
-        else if (we_reg && |wr)       // 写使�?+非零地址
-        begin  
+        else if (we_reg && |wr)       // 写使�?+非零地址 
             regs[wr] <= wd;
-        end
         else 
-        begin
             regs[0] <= 32'b0;
-        end
     end
 
 

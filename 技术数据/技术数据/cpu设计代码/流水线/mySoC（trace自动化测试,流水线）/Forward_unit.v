@@ -67,8 +67,8 @@ module Forward_unit(
     end 
 
 //前递选择操作数
-    assign Forward_A_Sel = (EX_risk_A == 1'b1 && MEM_risk_A == 1'b1)?1'b1:1'b0;
-    assign Forward_B_Sel = (EX_risk_B == 1'b1 && MEM_risk_B == 1'b1)?1'b1:1'b0;
+    assign Forward_A_Sel = (EX_risk_A == 1'b1 || MEM_risk_A == 1'b1)?1'b1:1'b0;
+    assign Forward_B_Sel = (EX_risk_B == 1'b1 || MEM_risk_B == 1'b1)?1'b1:1'b0;
 
 
 endmodule

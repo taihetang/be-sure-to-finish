@@ -1,24 +1,21 @@
 `include "define.v"
 module Branch_Predictor (
-    input  wire    [6:0]    opcode,
-    input  wire    [4:0]    wr,
-    input  wire    [2:0]    funct3,
-    input  wire    [4:0]    rs1,
-    input  wire    [4:0]    rs2,
-    input  wire    [6:0]    funct7, 
-    input   wire   [31:0]   pc,
-    input   wire   [31:0]   pc4,
-    output  wire   [31:0]   pc_pre,
-    output  reg             jump
+    input   wire    [6:0]   opcode,
+    input   wire    [31:0]  pc,
+    input   wire    [31:0]  J_Imm,          
+    output  wire    [31:0]  pc_pre,
+    output  wire            branch_Sel
     );
-//分支预测，预测B一定不跳转，J一定跳转
-//1jar 2jalr
-    wire branch_Sel;
-    assign branch_Sel = (opcode == 7'b1101111 || opcode == 7'b1100111)?1'b1:1'b0;
+//分支预测，预测B一定不跳转，Jar一定跳转(不包含jalr，因为他是rs1+imm)
+//jar
+    assign branch_Sel = (opcode == `jal)?1'b1:1'b0;
 //跳转地址
-    reg pc_branch;
+    wire    [31:0]  pc_branch;
+    assign pc_branch = pc + J_Imm;
+//pc4
+    wire    [31:0]  pc4;
+    assign pc4 = pc + 4;
 
-    assign pc_pre = ()?pc4:pc_branch;
-
+    assign pc_pre = (branch_Sel == 1'b1)?pc4:pc_branch;
 
 endmodule

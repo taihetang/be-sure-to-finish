@@ -17,5 +17,5 @@ module Branch_Predictor (
     assign pc4 = pc + 4;
 
     assign pc_pre = (branch_Sel == 1'b1)?pc4:pc_branch;
-
+//完成了原本的跳转+预测，原本跳转的实现是通过pc_selector里面改变pc的值实现的
 endmodule

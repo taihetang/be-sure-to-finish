@@ -4,6 +4,7 @@ module PC_Selector(
     input   wire            rst_n,
     input   wire    [6:0]   opcode,
     input   wire    [31:0]  J_Imm,
+    input   wire    [31:0]  pc_branch,
     input   wire    [31:0]  pc_current,
     input   wire            pc_Sel,    
     input   wire            stop_IF_ID,
@@ -26,11 +27,14 @@ module PC_Selector(
 
 //jump_record预测从哪里来，在分支预测模块里面
 //例化为pre_branch
+    wire   [31:0]   pc;
+    assign  pc = (risk_Control == 1'b1)?pc_branch:pc_current;
+
     Branch_Predictor pre_unit (
         .opcode(opcode),
         .pc(pc),
         .J_Imm(J_Imm),
-        .pc_pre(pc_branch),
+        .pc_pre(pc_pre),
         .branch_Sel(pre_branch)
     );
 
@@ -39,6 +43,6 @@ module PC_Selector(
 
 //pc值
 //这里与之前不同，之前还需要pc4，这里的pc4在预测模块已经实现
-    assign pc_selected = (stop_IF_ID)?pc_current:pc_branch;
+    assign pc_selected = (stop_IF_ID)?pc_current:pc_pre;
 
 endmodule
